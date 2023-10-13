@@ -1,2 +1,6 @@
 # Signal-Processing-and-Filtering-Library
-Library with the different signal processing and filtering scrips needed for a Energy analysis of a suspension system
+A library of all the functions used for an Energy analysis of a suspension system.
+
+This library includes all the necessary to filter and process the accelerometer data of a 4-post-rig
+
+
