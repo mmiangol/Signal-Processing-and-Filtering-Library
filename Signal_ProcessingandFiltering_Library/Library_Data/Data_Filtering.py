@@ -22,9 +22,11 @@ def Butterworth_filter_HP(sampling_Time, order, cut_off_frequency, Input_Signal)
 
 #Numerical integration
 def Numerical_integration(Xdata, Ydata):
-
-    dxmean = np.mean(np.diff(Xdata, n=1, axis=0))
-
-    return integrate.cumtrapz(Ydata, None, dxmean, axis=0)
+    
+ dxmean = np.mean(np.diff(Xdata, n=1, axis=0))
+ Int_Y = integrate.cumtrapz(Ydata, None, dxmean, axis=0)
+ Int_Y = np.concatenate((np.array([0]), Int_Y), axis=0)
+    
+ return Int_Y
 
 
