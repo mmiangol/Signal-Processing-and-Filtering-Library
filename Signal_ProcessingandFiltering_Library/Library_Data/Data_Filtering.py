@@ -19,3 +19,12 @@ def Butterworth_filter_HP(sampling_Time, order, cut_off_frequency, Input_Signal)
     fs = 1/np.ndarray.item(sampling_Time)
     b, a = signal.butter(order, cut_off_frequency/(fs/2), btype='highpass')
     return signal.filtfilt(b, a, Input_Signal, axis=0)
+
+#Numerical integration
+def Numerical_integration(Xdata, Ydata):
+
+    dxmean = np.mean(np.diff(Xdata, n=1, axis=0))
+
+    return integrate.cumtrapz(Ydata, None, dxmean, axis=0)
+
+
