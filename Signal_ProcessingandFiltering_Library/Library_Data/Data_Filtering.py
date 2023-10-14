@@ -1,6 +1,6 @@
 import numpy as np
-
 import scipy.signal as signal
+import scipy.integrate as integrate
 
 
 #Low pass Butterworth filter function
