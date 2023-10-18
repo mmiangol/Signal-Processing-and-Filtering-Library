@@ -35,5 +35,40 @@ def Polynomial_detrend(xdata, ydata, order):
     yp = np.polyval(Trend, xdata)
     return np.subtract(ydata, yp)
 
+# Piecewise interpolation
+def Piecewise_Interoplation(xdata, ydata, interpolation_steps):
 
+    # Parameter initialization
+    xmin = np.min(xdata)
+    xmax = np.max(xdata)
+    step_size = ((xmax - xmin) / interpolation_steps)
+    xinter = np.linspace(xmin, xmax, interpolation_steps+1)
+    xstart = xmin
+    xend = xmin + step_size
+    yinter = np.zeros(interpolation_steps+1)
+    ytot = np.zeros(interpolation_steps*2)
+
+
+    # Extraction of each individual piecewise section
+    for count in range(interpolation_steps):
+        ind = np.where(np.logical_and(xdata >= xstart, xdata <= xend))
+
+        fitted_data = np.polyfit(list(xdata[ind]), list(ydata[ind]), 1)
+        y1 = np.polyval(fitted_data, xstart)
+        y2 = np.polyval(fitted_data, xend)
+
+        ytot[count*2] = y1
+        ytot[count * 2+1] = y2
+
+        xstart = xstart + step_size
+        xend = xend + step_size
+
+    # Piecewise section merge
+    for count in range(interpolation_steps-1):
+
+        yinter[count+1] = ((ytot[count*2+1])+(ytot[count*2+2]))/2
+
+    yinter[0] = ytot[0]
+    yinter[interpolation_steps] = ytot[-1]
+    return xinter, yinter
 
