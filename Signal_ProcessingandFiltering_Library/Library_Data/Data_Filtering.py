@@ -72,3 +72,10 @@ def Piecewise_Interoplation(xdata, ydata, interpolation_steps):
     yinter[interpolation_steps] = ytot[-1]
     return xinter, yinter
 
+# Numerical derivation
+def Numerical_derivation(xdata, ydata):
+
+    dx = np.gradient(xdata)
+    dy = np.gradient(ydata)
+
+    return np.divide(dy, dx)
