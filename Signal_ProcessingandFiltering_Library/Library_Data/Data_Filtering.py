@@ -79,3 +79,13 @@ def Numerical_derivation(xdata, ydata):
     dy = np.gradient(ydata)
 
     return np.divide(dy, dx)
+
+# Fast Fourier Transformation plot data
+def FFT_plot(timestep, ydata):
+
+    length = ydata.size
+    freq = np.fft.fftfreq(length, d=timestep)[:length//2]
+    amplitude = np.fft.fft(ydata)
+    yamplitude = 2.0/length*np.abs(amplitude[0:length//2])
+    return freq, yamplitude
+
