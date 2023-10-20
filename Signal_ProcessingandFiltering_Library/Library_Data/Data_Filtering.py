@@ -89,3 +89,32 @@ def FFT_plot(timestep, ydata):
     yamplitude = 2.0/length*np.abs(amplitude[0:length//2])
     return freq, yamplitude
 
+
+# Bodeplot for test data, with amplitude ratio and phase angle
+def Bode_plot(input_signal, output_signal, sampling_time):
+
+    # Input signal FFT
+
+    length_input = input_signal.size
+    freq_input = np.fft.fftfreq(length_input, d=sampling_time)[:length_input//2]
+    amplitude_input = np.fft.fft(input_signal)
+    amplitude_input_half = 2.0/length_input*np.abs(amplitude_input[0:length_input//2])
+
+    # Ouput signal FFT
+
+    length_output = output_signal.size
+    freq_output = np.fft.fftfreq(length_output, d=sampling_time)[:length_output // 2]
+    amplitude_output = np.fft.fft(output_signal)
+    amplitude_output_half = 2.0/length_output*np.abs(amplitude_output[0:length_output // 2])
+
+    # Amplitude ratio
+
+    amplitude_ratio = np.divide(amplitude_output_half, amplitude_input_half)
+
+    # phase angle
+
+    phase_input = np.angle(amplitude_input[0:length_input // 2])
+    phase_output = np.angle(amplitude_output[0:length_input // 2]) 
+    pha = np.rad2deg(np.unwrap(np.subtract(phase_output, phase_input)))
+
+    return freq_output, amplitude_ratio, pha
