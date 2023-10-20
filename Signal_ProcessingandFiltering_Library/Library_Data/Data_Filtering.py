@@ -118,3 +118,13 @@ def Bode_plot(input_signal, output_signal, sampling_time):
     pha = np.rad2deg(np.unwrap(np.subtract(phase_output, phase_input)))
 
     return freq_output, amplitude_ratio, pha
+
+# Local/Sliding RMS
+
+def Local_RMS(ydata, WindowLength):
+
+    ysquare = np.power(ydata, 2)
+    meanSquareY = np.convolve(ysquare, np.ones(WindowLength)/WindowLength, mode='same')
+    meanSquareY = meanSquareY.astype(float)
+    return np.sqrt(meanSquareY)
+
